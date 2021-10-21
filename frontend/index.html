@@ -6,32 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road To backend</title>
     <style>
-        div{
-            width: 14%;
+        div>input{
+            width: 200px;
         }
     </style>
 </head>
 <body>
-    <div>
-        <h1>Add Product</h1>
-        <input type="number" id="id" placeholder="id">
-        <input type="text" id="name" placeholder="name">
-        <input type="text" id="price" placeholder="price">
-        <button onclick="addprod()">Add Product</button>
+    <div style="display: flex; gap: 80px;">
+        <div>
+            <h1>Add Product</h1>
+            <input type="number" id="id" placeholder="id">
+            <br/>
+            <input type="text" id="name" placeholder="name">
+            <br/>
+            <input type="text" id="price" placeholder="price">
+            <br/>
+            <button onclick="addprod()">Add Product</button>
+        </div>
+        <div>
+            <h1>
+                Delete Product
+            </h1>
+                <input type="number" id="idd" placeholder="ID">
+                <br/>
+                <button onclick="deletedata()">Delete item</button>
+        </div>
+        <div>
+            <h1>Update Param</h1>
+            <input type="number" id="putid" placeholder="Enter ID">
+            <br/>
+            <input type="text" id="puttext" placeholder="Enter update">
+            <br/>
+            <input type="text" id="putname" placeholder="Enter new name">
+            <br/>
+            <button onclick="update()">Update param</button>
+        </div>
+        <div>
+            <h1>Get all data</h1>
+            <button onclick="get()">get data</button>
+        </div>
     </div>
-    <div>
-        <h1>
-            Delete Product
-        </h1>
-            <input type="number" id="idd" placeholder="ID">
-            <button onclick="deletedata()">Delete item</button>
-    </div>
-    <div>
-        <h1>Update Param</h1>
-        <input type="number" id="putid" placeholder="Enter ID">
-        <input type="text" id="puttext" placeholder="Enter update">
-        <button onclick="update()">Update param</button>
-    </div>
+    
 </body>
 </html>
 <script>
@@ -68,7 +83,8 @@
     async function update(){
         let data = {
             id:document.getElementById('putid').value,
-            active:document.getElementById('puttext').value
+            active:document.getElementById('puttext').value,
+            name:document.getElementById('putname').value,
         };
         try{
             let id = document.getElementById('putid').value;
@@ -85,5 +101,10 @@
         catch(e){
             console.log(e)
         }
+    }
+    async function get(){
+        let resp = await fetch("http://localhost:5000/api/products")
+        let data = await resp.json()
+        console.log(data)
     }
 </script>
